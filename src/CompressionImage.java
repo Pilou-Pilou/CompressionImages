@@ -1,3 +1,4 @@
+import algo.IterativeCompression;
 import data.Data;
 import file.BitInputStream;
 import file.LoadPictures;
@@ -17,6 +18,10 @@ public class CompressionImage {
 
     private BitInputStream bitInputStream;
 
+    /**
+     * Constructor of the CompressionImage who permit to load the picture
+     * and put the image in array of bite.
+     */
     public CompressionImage(){
 
         try {
@@ -30,17 +35,19 @@ public class CompressionImage {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         createTableOfByte();
 
 
     }
 
+    /**
+     * This method put the picture choose in array of bite.
+     */
     private void createTableOfByte(){
 
         try {
             Data.arrayOfByte = bitInputStream.readBitsToArray(512*512);
-            System.out.println(Data.arrayOfByte[512*512-1]); // derniere case
+            new IterativeCompression();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -6,7 +6,7 @@ package algo;
  * <b>Description :</b><br>
  * TODO enter a description
  *
- * @author Julien SERGENT - Orange / IMT / OLPS / SOFT
+ * @author Julien SERGENT
  */
 public class RecursiveCompression {
 }
