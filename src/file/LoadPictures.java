@@ -10,6 +10,14 @@ package file;
  */
 public class LoadPictures {
 
+	public String get(String path){
+		return this.getClass().getClassLoader().getResource(path).getFile();
+	}
+	
+	public String getUserFile(){
+		return this.getClass().getClassLoader().getResource(Browser.askFile(null)).getFile();
+	}
+	
     /**
      *
      * @return the path of the picture Baboon.

@@ -73,9 +73,17 @@ public class IterativeCompression {
      *
      * @return the number of bite who is useful.
      */
-    public int nbBitUseInPixel(String pixel){
-
+    public static int nbBitUseInPixel(String pixel){
+    	/*
+         * TODO : optimisation : indexOf retourne la position du premier caractère spécifié rencontré ;)
+         * return 8 - pixel.indexOf('1');
+         * 
+         */
+    	
+    	
         int tmp =0;
+        
+        
            if(pixel.charAt(0)=='0'){
                 tmp ++;
                if(pixel.charAt(1)=='0'){
