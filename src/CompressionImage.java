@@ -46,7 +46,7 @@ public class CompressionImage {
     private void createTableOfByte(){
 
         try {
-            Data.arrayOfByte = bitInputStream.readBitsToArray(512*512);
+            Data.arrayOfByte = bitInputStream.readByteToArray(bitInputStream.available());
             new IterativeCompression();
         } catch (IOException e) {
             e.printStackTrace();

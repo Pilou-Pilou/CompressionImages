@@ -1,3 +1,5 @@
+import algo.Decompress;
+
 /**
  * <b>File :</b> Main.java<br>
  * <b>Creation date :</b> 26/10/15<br>
@@ -10,5 +12,6 @@ public class Main {
 
     public static void main (String [] args){
         new CompressionImage();
+        new Decompress().start();
     }
 }

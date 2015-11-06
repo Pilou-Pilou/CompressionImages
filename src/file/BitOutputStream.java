@@ -37,14 +37,17 @@ public class BitOutputStream {
 
     public void write(Segment segment){
 
-        for(int i=0;i<segment.getSegment().length();i++){
+        write(segment.getSegment());
+    }
+
+    public void write(String bite){
+        for(int i=0;i<bite.length();i++){
             try {
-                write(Integer.parseInt(segment.getSegment().charAt(i)+""));
+                write(Integer.parseInt(bite.charAt(i)+""));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
 

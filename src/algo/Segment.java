@@ -12,30 +12,31 @@ public class Segment {
 
     private String headSegment;
     private String bodySegment;
-    private int nbBiteUse;
+    private int nbBiteUseless;
 
     /**
      * Constructor of segment who permit to build the head of segment.
      *
      * @param nbPixel : number of pixel in the sequence.
-     * @param nbBite  : number of bit use by pixel.
+     * @param nbBiteUseless  : number of bit useless by pixel.
      */
-    public Segment(int nbPixel,int nbBite){
+    public Segment(int nbPixel,int nbBiteUseless){
 
         String pixelTmp = Integer.toBinaryString(nbPixel);
-        String bitTmp = Integer.toBinaryString(nbBite);
+        String bitTmp = Integer.toBinaryString(nbBiteUseless);
         String tmp = "";
         for(int i=pixelTmp.length();i<8;i++){
             tmp += "0";
         }
         pixelTmp = tmp + pixelTmp;
+
         tmp = "";
         for(int i=bitTmp.length();i<3;i++){
             tmp += "0";
         }
         bitTmp = tmp + bitTmp;
 
-        this.nbBiteUse = nbBite;
+        this.nbBiteUseless = nbBiteUseless;
         this.headSegment = pixelTmp+bitTmp;
         this.bodySegment = "";
     }
@@ -45,7 +46,7 @@ public class Segment {
      * @param pixel : String of bite to add to the sequence of the body.
      */
     public void fillBodySegement(String pixel){
-        this.bodySegment += pixel.substring(8-this.nbBiteUse,7);
+        this.bodySegment += pixel.substring(this.nbBiteUseless, 8);
     }
 
     /**

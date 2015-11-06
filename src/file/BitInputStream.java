@@ -1,5 +1,7 @@
 package file;
 
+import algo.Segment;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilterInputStream;
@@ -24,7 +26,7 @@ public class BitInputStream extends FilterInputStream {
 		clearBuffer();
 	}
 
-	public String[] readBitsToArray(int nbPixels) throws IOException {
+	public String[] readByteToArray(int nbPixels) throws IOException {
 		if (nbPixels <= 0) {
 			throw new IllegalArgumentException();
 		}
@@ -43,6 +45,43 @@ public class BitInputStream extends FilterInputStream {
             }
         }
 		return res;
+	}
+
+	public String readSegment() throws IOException {
+
+		String completPixel="";
+		String tmp="";
+		String nbPixel="";
+		String nbBiteUseless="";
+		if(this.available()>11){
+
+			// read the length of segment
+			for(int i=0;i<8;i++)
+				nbPixel += readBit();
+
+			// read the number of bite use
+			for(int i=0;i<3;i++)
+				nbBiteUseless += readBit();
+
+			for(int i=0;i<Integer.parseInt(nbBiteUseless, 2);i++)
+				tmp += "0";
+
+
+			for(int i=0;i<Integer.parseInt(nbPixel, 2);i++){
+				completPixel += tmp;
+				for(int j=0;j<(8-Integer.parseInt(nbBiteUseless, 2));j++) {
+					int a = readBit();
+					//System.out.println(a+" "+available()+" "+j+" "+Integer.parseInt(nbBiteUse, 2)+" "+i+" "+Integer.parseInt(nbPixel, 2)+" "+nbPixel+" "+nbBiteUse);
+					completPixel += a + "";
+				}
+			}
+
+			//System.out.println(completPixel);
+			return completPixel;
+
+		}else{
+			throw new IllegalArgumentException("No more bite : "+this.available()+" bite(s) available");
+		}
 	}
 
 	public int readBit() throws IOException {

@@ -12,7 +12,7 @@ public class Value {
 
     private int cost;
     private int lengthOfSegment;
-    private int nbBitUse;
+    private int nbBitUseless;
 
     /**
      * Constructor of the class Value who permit to set all value to 0.
@@ -20,7 +20,7 @@ public class Value {
     public Value(){
         this.cost =0;
         this.lengthOfSegment =0;
-        this.nbBitUse=0;
+        this.nbBitUseless=0;
     }
 
     /**
@@ -43,8 +43,8 @@ public class Value {
      *
      * @return the number of bite use for the pixel who corresponding.
      */
-    public int getNbBitUse() {
-        return nbBitUse;
+    public int getNbBitUseless() {
+        return nbBitUseless;
     }
 
     /**
@@ -65,10 +65,10 @@ public class Value {
 
     /**
      *
-     * @param nbBitUse : it is the number of bit for the pixel who corresponding.
+     * @param nbBitUseless : it is the number of bit for the pixel who corresponding.
      */
-    public void setNbBitUse(int nbBitUse) {
-        this.nbBitUse = nbBitUse;
+    public void setNbBitUseless(int nbBitUseless) {
+        this.nbBitUseless = nbBitUseless;
     }
 
 }
