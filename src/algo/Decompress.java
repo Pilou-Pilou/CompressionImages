@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * <b>File :</b> Decompression.java<br>
+ * <b>File :</b> Decompress.java<br>
  * <b>Creation date :</b> 05/11/2015<br>
  * <b>Description :</b><br>
  * TODO enter a description

@@ -1,5 +1,7 @@
 package algo;
 
+import data.Bit;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -16,7 +18,7 @@ public class SegmentForRecursive {
 	public SegmentForRecursive(String pixel) {
 		try {
 			this.push(pixel);
-			this._nbBits = IterativeCompression.nbBitUseInPixel(pixel);
+			this._nbBits = Bit.getNbBitUseInPixel(pixel);
 		} catch (Exception e) {
 			// cannot be reached in the constructor
 			// (push throws an exception only if the HashSet has more than 255 values -> impossible)

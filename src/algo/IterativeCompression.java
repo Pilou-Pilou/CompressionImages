@@ -1,5 +1,6 @@
 package algo;
 
+import data.Bit;
 import data.Data;
 import data.Value;
 import file.BitOutputStream;
@@ -62,18 +63,6 @@ public class IterativeCompression {
         }
     }
 
-    /**.
-     *
-     * @param pixel : it is the pixel who was describe with 8 bits in a string.
-     *
-     * @return the number of bite who is useful.
-     */
-    public int getNbBitUseless(String pixel){
-        if(pixel.contains("1"))
-            return pixel.indexOf("1");
-        else return 7;
-    }
-
     /**
      *
      * @param index : it is the index of the current index read in the table.
@@ -84,7 +73,7 @@ public class IterativeCompression {
 
         int min;
         int tmp1,tmp2;
-        int nbBitUseless = getNbBitUseless(Data.arrayOfByte[index]);
+        int nbBitUseless = Bit.getNbBitUselessInPixel(Data.arrayOfByte[index]);
         int nbBitUse = 8 - nbBitUseless;
 
         value[index].setNbBitUseless(nbBitUseless);

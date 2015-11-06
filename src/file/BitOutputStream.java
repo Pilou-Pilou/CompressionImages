@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * <b>File :</b> file.BitOutputStream.java<br>
+ * <b>File :</b> BitOutputStream.java<br>
  * <b>Creation date :</b> 04/11/2015<br>
  * <b>Description :</b><br>
  * TODO enter a description

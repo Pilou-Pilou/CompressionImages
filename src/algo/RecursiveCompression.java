@@ -2,6 +2,7 @@ package algo;
 
 import java.util.LinkedList;
 
+import data.Bit;
 import data.Data;
 
 public class RecursiveCompression {
@@ -46,8 +47,8 @@ public class RecursiveCompression {
 		
 		
 		int min_i_1 = getMin(bytes, index-1, compressedSegments);
-		int b_i = IterativeCompression.nbBitUseInPixel(bytes[index]);
-		int b_i_1 = IterativeCompression.nbBitUseInPixel(bytes[index-1]);
+		int b_i = Bit.getNbBitUseInPixel(bytes[index]);
+		int b_i_1 = Bit.getNbBitUseInPixel(bytes[index-1]);
 		
 		int segmentCreation = min_i_1 + NB_HEADERS + b_i;
 		

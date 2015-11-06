@@ -1,7 +1,7 @@
 package file;
 
 /**
- * <b>File :</b> file.LoadPictures.java<br>
+ * <b>File :</b> LoadPictures.java<br>
  * <b>Creation date :</b> 26/10/15<br>
  * <b>Description :</b><br>
  * TODO enter a description

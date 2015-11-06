@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * <b>File :</b> file.BitInputStream.java<br>
+ * <b>File :</b> BitInputStream.java<br>
  * <b>Creation date :</b> 26/10/15<br>
  * <b>Description :</b><br>
  * TODO enter a description
