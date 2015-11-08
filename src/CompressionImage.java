@@ -26,10 +26,10 @@ public class CompressionImage {
 
         try {
 
-            bitInputStream = new BitInputStream(new LoadPictures().getBaboon());
+            //bitInputStream = new BitInputStream(new LoadPictures().getBaboon());
             //bitInputStream = new file.BitInputStream(new LoadPictures().getBarbara());
             //bitInputStream = new file.BitInputStream(new LoadPictures().getGoldhill());
-            //bitInputStream = new file.BitInputStream(new LoadPictures().getLena());
+            bitInputStream = new file.BitInputStream(new LoadPictures().getLena());
             //bitInputStream = new file.BitInputStream(new LoadPictures().getPeppers());
 
         } catch (FileNotFoundException e) {
@@ -46,7 +46,7 @@ public class CompressionImage {
     private void createTableOfByte(){
 
         try {
-            Data.arrayOfByte = bitInputStream.readByteToArray(bitInputStream.available());
+            //Data.arrayOfByte = bitInputStream.readByteToArray(bitInputStream.available());
             new IterativeCompression();
         } catch (IOException e) {
             e.printStackTrace();

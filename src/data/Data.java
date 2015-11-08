@@ -10,5 +10,5 @@ package data;
  */
 public class Data {
 
-    public static String[] arrayOfByte;
+    public static String[] arrayOfByte = new String[]{"00110011","10101111","01110111","01111111"};
 }

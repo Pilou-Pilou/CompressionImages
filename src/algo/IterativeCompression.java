@@ -1,12 +1,13 @@
 package algo;
 
-import data.Bit;
-import data.Data;
-import data.Value;
+import data.*;
 import file.BitOutputStream;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <b>File :</b> IterativeCompression.java<br>
@@ -18,99 +19,95 @@ import java.io.IOException;
  */
 public class IterativeCompression {
 
-    private Value[] value;
+
 
     /**
      * Constructor of the class IterativeCompression
      */
     public IterativeCompression() throws IOException {
 
-        value = new Value[Data.arrayOfByte.length];
+        int costMin =  Integer.MAX_VALUE;
+        int index = 0;
+        int nbPixel = Data.arrayOfByte.length;
+        String pixel = Data.arrayOfByte[index];
+        Node tmpNode,currentNode,lastNode = null;
+        int currentCost;
 
-        // initialise the table
-        init();
+        Node initialNode = new Node(null,11+Bit.getNbBitUseInPixel(pixel),Bit.getNbBitUseInPixel(pixel),1);
 
-        // fills the table of value
-        for(int i= Data.arrayOfByte.length-1; i>=0 ; i--)
-            countMin(i);
+        currentNode = initialNode;
+        while(!initialNode.isComplet()) {
+
+            if (currentNode.getNewSequenceNode() == null && index < (nbPixel - 1)) {
+                pixel = Data.arrayOfByte[index + 1];
+                currentCost = currentNode.getCost() + 11 + Bit.getNbBitUseInPixel(pixel);
+
+                tmpNode = new Node(currentNode, currentCost, Bit.getNbBitUseInPixel(pixel), 1);
+
+                currentNode.setNewSequence(tmpNode);
+
+                if(currentCost<costMin) {
+                    currentNode = tmpNode;
+                    index++;
+                }
+
+            } else if (currentNode.getAddSequenceNode() == null && (index < nbPixel - 1) && currentNode.getNbPixel() < 255) {
+                pixel = Data.arrayOfByte[index + 1];
+                currentCost = currentNode.getCost()
+                        - (currentNode.getNbBitUse() * currentNode.getNbPixel())
+                        + ((currentNode.getNbPixel() + 1) * Math.max(Bit.getNbBitUseInPixel(pixel), currentNode.getNbBitUse()));
+
+                tmpNode = new Node(currentNode, currentCost, Math.max(Bit.getNbBitUseInPixel(pixel), currentNode.getNbBitUse()), currentNode.getNbPixel() + 1);
+
+                currentNode.setAddSequence(tmpNode);
+
+                if(currentCost<costMin) {
+                    currentNode = tmpNode;
+                    index++;
+                }
+
+            } else {
+                if (currentNode.getNbPixel() == 255 || index == (nbPixel - 1) || currentNode.getNewSequenceNode() != null && currentNode.getAddSequenceNode() != null)
+                    currentNode.setIscomplet(true);
+
+                if (index == (nbPixel-1))
+                    costMin = Math.min(costMin, currentNode.getCost());
+
+                if(currentNode.getCost() == costMin)
+                    lastNode = currentNode;
+
+                currentNode = currentNode.getPreviousNode();
+                index--;
+            }
+
+
+
+        }
 
         // create the sequence and put it in the file
-        int idMax,nbBiteUseless;
-        BitOutputStream a = new BitOutputStream(new FileOutputStream("tmp.seg"));
-        for(int i=0;i<value.length;i++){
-            idMax = value[i].getLengthOfSegment()+i;
-            nbBiteUseless = value[i].getNbBitUseless();
-            Segment segment = new Segment(value[i].getLengthOfSegment(),nbBiteUseless);
-            while(i < idMax){
-                segment.fillBodySegement(Data.arrayOfByte[i]);
-                i++;
+        BitOutputStream file = new BitOutputStream(new FileOutputStream("tmp.seg"));
+        currentNode = lastNode;
+        index = Data.arrayOfByte.length;
+        List<Segment> listSegments = new ArrayList<>();
+        while(currentNode != null){
+            nbPixel = currentNode.getNbPixel();
+            Segment segment = new Segment(nbPixel,8-currentNode.getNbBitUse());
+            int a = index - nbPixel;
+            for(int i=0;i<nbPixel;i++){
+
+                segment.fillBodySegement(Data.arrayOfByte[a+i]);
+                index--;
+                currentNode = currentNode.getPreviousNode();
             }
-
-            a.write(segment);
-            // for don't have twice i++ (in while and with for)
-            i--;
-        }
-        a.close();
-    }
-
-    /**
-     * This method initialise all case of table with object value.
-     */
-    public void init(){
-
-        for(int i=0;i<value.length;i++){
-            value[i]= new Value();
-        }
-    }
-
-    /**
-     *
-     * @param index : it is the index of the current index read in the table.
-     *
-     * @return the cost of the min solution to take.
-     */
-    public int countMin(int index){
-
-        int min;
-        int tmp1,tmp2;
-        int nbBitUseless = Bit.getNbBitUselessInPixel(Data.arrayOfByte[index]);
-        int nbBitUse = 8 - nbBitUseless;
-
-        value[index].setNbBitUseless(nbBitUseless);
-        if(index == Data.arrayOfByte.length-1){
-            min = 11 + nbBitUse;
-            value[index].setLengthOfSegment(1);
-        }else {
-            if(value[index+1].getLengthOfSegment() >= 255){
-                min = 11 + nbBitUse;
-                value[index].setLengthOfSegment(1);
-            }else {
-                if (nbBitUseless < value[index + 1].getNbBitUseless()) {
-                    // 0111 0010 0011
-                    tmp1 = value[index + 1].getCost() + 11 + nbBitUse;
-                    tmp2 = nbBitUse * (value[index + 1].getLengthOfSegment() + 1);
-                    min = Math.min(tmp1, tmp2);
-                    if (min == tmp1)
-                        value[index].setLengthOfSegment(1);
-                    else
-                        value[index].setLengthOfSegment(value[index + 1].getLengthOfSegment() + 1);
-
-                } else {// >=
-                    // 0011  0111  0101
-                    tmp1 = value[index + 1].getCost() + 11 + nbBitUse;
-                    tmp2 = value[index + 1].getCost() + nbBitUse;
-                    min = Math.min(tmp1, tmp2);
-                    if (min == tmp1)
-                        value[index].setLengthOfSegment(1);
-                    else
-                        value[index].setLengthOfSegment(value[index + 1].getLengthOfSegment() + 1);
-                        value[index].setNbBitUseless(value[index + 1].getNbBitUseless());
-                }
-            }
+            System.out.println(segment.getSegment());
+            listSegments.add(0,segment);
         }
 
-        value[index].setCost(min);
-        return min;
+        for (int i=0;i<listSegments.size();i++)
+            file.write(listSegments.get(i));
+        file.close();
     }
+
+
 
 }

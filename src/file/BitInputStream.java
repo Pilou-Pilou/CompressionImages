@@ -53,16 +53,17 @@ public class BitInputStream extends FilterInputStream {
 		String tmp="";
 		String nbPixel="";
 		String nbBiteUseless="";
-		if(this.available()>11){
 
 			// read the length of segment
 			for(int i=0;i<8;i++)
 				nbPixel += readBit();
 
+			//System.out.println(nbPixel);
 			// read the number of bite use
 			for(int i=0;i<3;i++)
 				nbBiteUseless += readBit();
 
+			//System.out.println(nbBiteUseless);
 			for(int i=0;i<Integer.parseInt(nbBiteUseless, 2);i++)
 				tmp += "0";
 
@@ -76,12 +77,9 @@ public class BitInputStream extends FilterInputStream {
 				}
 			}
 
-			//System.out.println(completPixel);
+			System.out.println(completPixel);
 			return completPixel;
 
-		}else{
-			throw new IllegalArgumentException("No more bite : "+this.available()+" bite(s) available");
-		}
 	}
 
 	public int readBit() throws IOException {
