@@ -1,4 +1,5 @@
 import algo.Decompress;
+import com.sun.org.apache.xpath.internal.SourceTree;
 
 /**
  * <b>File :</b> Main.java<br>
@@ -12,6 +13,6 @@ public class Main {
 
     public static void main (String [] args){
         new CompressionImage();
-        new Decompress().start();
+        new Decompress("tmp-iterative.seg").start();
     }
 }

@@ -23,10 +23,10 @@ public class Decompress {
     /**
      * Constructor of the class Decompress who will open two file .seg and .raw.
      */
-    public Decompress(){
+    public Decompress(String pathFileSeg){
         try {
             bitOutputStream = new BitOutputStream(new FileOutputStream("final.raw"));
-            bitInputStream = new BitInputStream("tmp.seg");
+            bitInputStream = new BitInputStream(pathFileSeg);
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
