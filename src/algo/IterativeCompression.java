@@ -85,13 +85,13 @@ public class IterativeCompression {
         }
 
         // create the sequence and put it in the file
-        BitOutputStream file = new BitOutputStream(new FileOutputStream("tmp.seg"));
+        BitOutputStream file = new BitOutputStream(new FileOutputStream("tmp-iterative.seg"));
         currentNode = lastNode;
         index = Data.arrayOfByte.length;
-        List<Segment> listSegments = new ArrayList<>();
+        List<SegmentForIterative> listSegments = new ArrayList<>();
         while(currentNode != null){
             nbPixel = currentNode.getNbPixel();
-            Segment segment = new Segment(nbPixel,8-currentNode.getNbBitUse());
+            SegmentForIterative segment = new SegmentForIterative(nbPixel,8-currentNode.getNbBitUse());
             int a = index - nbPixel;
             for(int i=0;i<nbPixel;i++){
 

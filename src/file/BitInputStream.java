@@ -1,6 +1,6 @@
 package file;
 
-import algo.Segment;
+import algo.SegmentForIterative;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
