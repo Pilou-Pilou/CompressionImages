@@ -36,11 +36,11 @@ public class IterativeCompression {
 
         // create the sequence and put it in the file
         int idMax,nbBiteUseless;
-        BitOutputStream a = new BitOutputStream(new FileOutputStream("tmp.seg"));
+        BitOutputStream a = new BitOutputStream(new FileOutputStream("tmp-iterative.seg"));
         for(int i=0;i<value.length;i++){
             idMax = value[i].getLengthOfSegment()+i;
             nbBiteUseless = value[i].getNbBitUseless();
-            Segment segment = new Segment(value[i].getLengthOfSegment(),nbBiteUseless);
+            SegmentForIterative segment = new SegmentForIterative(value[i].getLengthOfSegment(),nbBiteUseless);
             while(i < idMax){
                 segment.fillBodySegement(Data.arrayOfByte[i]);
                 i++;

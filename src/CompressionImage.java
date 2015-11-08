@@ -1,10 +1,12 @@
 import algo.IterativeCompression;
+import algo.RecursiveCompression;
 import data.Data;
 import file.BitInputStream;
 import file.LoadPictures;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * <b>File :</b> Compressor.java<br>
@@ -46,8 +48,23 @@ public class CompressionImage {
     private void createTableOfByte(){
 
         try {
+        	Date date = new Date();
+        	long begin, end;
             Data.arrayOfByte = bitInputStream.readByteToArray(bitInputStream.available());
+            
+            System.out.println("Iterative method...");
+            begin = date.getTime();
             new IterativeCompression();
+            end = date.getTime();
+            System.out.println("done in "+String.valueOf(end-begin)+"ms.");
+            
+            System.out.println("Recursive method...");
+            begin = date.getTime();
+            new RecursiveCompression();
+            end = date.getTime();
+            System.out.println("done in "+String.valueOf(end-begin)+"ms.");
+            
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

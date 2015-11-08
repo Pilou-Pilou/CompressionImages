@@ -5,7 +5,7 @@ import data.Bit;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class SegmentForRecursive {
+public class SegmentForRecursive implements Segment {
 	private int _nbBits = 0; //number of bits for each pixel in this segment
 	
 	private LinkedList<String> _pixels = new LinkedList<String>(); //pixels in the segment
@@ -94,5 +94,27 @@ public class SegmentForRecursive {
 		
 	public void reset(){
 		_pixelsIt = _pixels.iterator();
+	}
+
+
+	@Override
+	public String getSegment() {
+		String segment = "";
+
+		try {
+			//create the header
+			segment = String.valueOf(_pixels.size());
+			segment += String.valueOf(8-_nbBits);
+			
+			//add each pixel
+			while(this.canPop()){
+				segment += String.valueOf(this.popCompressedPixel());
+			}
+			
+			return segment;
+		}
+		catch (Exception e) {
+			return segment;
+		}
 	}
 }

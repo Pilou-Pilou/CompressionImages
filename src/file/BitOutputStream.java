@@ -1,6 +1,7 @@
 package file;
 
 import algo.Segment;
+import algo.SegmentForIterative;
 
 import java.io.IOException;
 import java.io.OutputStream;
