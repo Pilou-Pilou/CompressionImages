@@ -100,15 +100,32 @@ public class SegmentForRecursive implements Segment {
 	@Override
 	public String getSegment() {
 		String segment = "";
-
+		String nbPixels;
+		String nbRemovedPixels;
+		
+		System.out.println("Segment : ");
+		
 		try {
 			//create the header
-			segment = String.valueOf(_pixels.size());
-			segment += String.valueOf(8-_nbBits);
+			nbPixels = Integer.toBinaryString(_pixels.size());
+			while(nbPixels.length()<8){
+				nbPixels = "0"+nbPixels;
+			}
+			
+			nbRemovedPixels = Integer.toBinaryString(8-_nbBits);
+			while(nbRemovedPixels.length()<8){
+				nbRemovedPixels = "0"+nbRemovedPixels;
+			}
+			segment = nbPixels+nbRemovedPixels;
+			System.out.println("Header : "+segment+" ("+_pixels.size()+","+String.valueOf(8-_nbBits));
 			
 			//add each pixel
+			this.reset();
 			while(this.canPop()){
-				segment += String.valueOf(this.popCompressedPixel());
+				String pixel = String.valueOf(this.popCompressedPixel());
+				System.out.println("Pixel : "+pixel);
+				
+				segment += pixel;
 			}
 			
 			return segment;

@@ -28,10 +28,10 @@ public class CompressionImage {
 
         try {
 
-            //bitInputStream = new BitInputStream(new LoadPictures().getBaboon());
+            bitInputStream = new BitInputStream(new LoadPictures().getBaboon());
             //bitInputStream = new file.BitInputStream(new LoadPictures().getBarbara());
             //bitInputStream = new file.BitInputStream(new LoadPictures().getGoldhill());
-            bitInputStream = new file.BitInputStream(new LoadPictures().getLena());
+          //  bitInputStream = new file.BitInputStream(new LoadPictures().getLena());
             //bitInputStream = new file.BitInputStream(new LoadPictures().getPeppers());
 
         } catch (FileNotFoundException e) {
@@ -54,7 +54,7 @@ public class CompressionImage {
 
             System.out.println("Iterative method...");
             begin = date.getTime();
-            new IterativeCompression();
+          //  new IterativeCompression();
             end = date.getTime();
             System.out.println("done in "+String.valueOf(end-begin)+"ms.");
 

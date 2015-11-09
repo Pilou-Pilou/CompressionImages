@@ -13,6 +13,7 @@ public class Main {
 
     public static void main (String [] args){
         new CompressionImage();
-        new Decompress("tmp-iterative.seg").start();
+        //new Decompress("tmp-iterative.seg").start();
+        new Decompress("tmp-recursive.seg").start();
     }
 }

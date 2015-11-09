@@ -46,6 +46,7 @@ public class RecursiveCompression {
 	 * parameter is not writable with 1 byte (e.g. the corresponding integer value is higher than 255)
 	 */
 	int getMin(String[] bytes, int index, LinkedList<SegmentForRecursive> compressedSegments) throws Exception{
+	
 		//check pre-conditions
 		if(index<0)
 			throw new Exception("The index parameter can't be less than 0");

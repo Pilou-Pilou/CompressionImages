@@ -77,7 +77,7 @@ public class BitInputStream extends FilterInputStream {
 				}
 			}
 
-			System.out.println(completPixel);
+			//System.out.println(completPixel);
 			return completPixel;
 
 	}
