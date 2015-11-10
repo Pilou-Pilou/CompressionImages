@@ -38,15 +38,22 @@ public class BitOutputStream {
 
     public void write(Segment segment){
 
-        write(segment.getSegment());
+        try {
+			write(segment.getSegment());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
-    public void write(String bite){
+    public void write(String bite) throws Exception{
         for(int i=0;i<bite.length();i++){
             try {
-                write(Integer.parseInt(bite.charAt(i)+""));
-            } catch (IOException e) {
+                write(Integer.parseInt(String.valueOf(bite.charAt(i))));
+            } catch (Exception e) {
+            	System.out.println("Tried to write : "+bite);
                 e.printStackTrace();
+                System.exit(-1);
             }
         }
     }
@@ -55,13 +62,14 @@ public class BitOutputStream {
     // Writes a bit to the stream. The specified bit must be 0 or 1.
     private void write(int b) throws IOException {
         if (!(b == 0 || b == 1))
-            throw new IllegalArgumentException("Argument must be 0 or 1");
+            throw new IllegalArgumentException("Argument must be 0 or 1 but is "+b);
         currentByte = currentByte << 1 | b;
         numBitsInCurrentByte++;
         if (numBitsInCurrentByte == 8) {
             output.write(currentByte);
             numBitsInCurrentByte = 0;
         }
+        
     }
 
 

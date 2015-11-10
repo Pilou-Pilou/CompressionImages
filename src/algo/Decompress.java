@@ -41,7 +41,12 @@ public class Decompress {
         try {
             while(bitInputStream.available()>0) {
                 tmp = bitInputStream.readSegment();
-                bitOutputStream.write(tmp);
+                try {
+					bitOutputStream.write(tmp);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         } catch (IOException e) {
             e.printStackTrace();

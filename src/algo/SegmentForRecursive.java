@@ -127,7 +127,8 @@ public class SegmentForRecursive implements Segment {
 				
 				segment += pixel;
 			}
-			
+
+			System.out.println("Segment total : "+segment);
 			return segment;
 		}
 		catch (Exception e) {

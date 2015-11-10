@@ -1,4 +1,6 @@
 import algo.Decompress;
+import tests.TestReadWriteFile;
+
 import com.sun.org.apache.xpath.internal.SourceTree;
 
 /**
@@ -12,8 +14,12 @@ import com.sun.org.apache.xpath.internal.SourceTree;
 public class Main {
 
     public static void main (String [] args){
+    	new TestReadWriteFile();
+    	/*
         new CompressionImage();
+        System.out.println("Decompression...");
         //new Decompress("tmp-iterative.seg").start();
         new Decompress("tmp-recursive.seg").start();
+        System.out.println("Decompression terrminée.");*/
     }
 }
