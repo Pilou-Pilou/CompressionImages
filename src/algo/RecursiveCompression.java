@@ -9,8 +9,21 @@ import data.Data;
 import file.BitOutputStream;
 import tests.TestRecursiveSegmentCreation;
 
+/*
+ * 
+ * 
+ * ATTENTION
+ * 
+ * A été déplacé vers CompressionImage.recursive() ; cette classe n'est plus appelée
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
 public class RecursiveCompression {
-	public final int NB_HEADERS = 11;
+	public static final int NB_HEADERS = 11;
 	
 	public RecursiveCompression(){
 		try {
@@ -64,7 +77,7 @@ public class RecursiveCompression {
 			compressedSegments.add(new SegmentForRecursive(bytes[index]));
 			return NB_HEADERS + Bit.getNbBitUseInPixel(bytes[index]);
 		}		
-				
+	
 		//cost at pixel i-1
 		int min_i_1 = getMin(bytes, index-1, compressedSegments);
 		//number min of required bits in pixels i and i-1

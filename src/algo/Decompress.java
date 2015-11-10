@@ -7,6 +7,21 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+
+/*
+ * 
+ * 
+ * ATTENTION
+ * 
+ * A été déplacé vers CompressionImage.decompress() ; cette classe n'est plus appelée
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+
 /**
  * <b>File :</b> Decompress.java<br>
  * <b>Creation date :</b> 05/11/2015<br>

@@ -3,11 +3,27 @@ package algo;
 import data.*;
 import file.BitOutputStream;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+
+/*
+ * 
+ * 
+ * ATTENTION
+ * 
+ * Cette classe n'est plus appelée ; j'ai fait l'algo dans CompressionImage.iterative()
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
 
 /**
  * <b>File :</b> IterativeCompression.java<br>
@@ -18,14 +34,8 @@ import java.util.List;
  * @author Julien SERGENT
  */
 public class IterativeCompression {
-
-
-
-    /**
-     * Constructor of the class IterativeCompression
-     */
-    public IterativeCompression() throws IOException {
-
+    
+	public static void IterativeCompression()  throws IOException {
         int costMin =  Integer.MAX_VALUE;
         int index = 0;
         int nbPixel = Data.arrayOfByte.length;

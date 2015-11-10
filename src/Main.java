@@ -1,6 +1,10 @@
 import algo.Decompress;
 import tests.TestReadWriteFile;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+
 import com.sun.org.apache.xpath.internal.SourceTree;
 
 /**
@@ -16,10 +20,14 @@ public class Main {
     public static void main (String [] args){
     	//new TestReadWriteFile();
     	
-        new CompressionImage();
+    	CompressionImage img = new CompressionImage("Baboon.raw");
+    	System.out.println("Compression itérative...");
+        img.iterative();
+        System.out.println("Compression récursive...");
+        img.recursive();
         System.out.println("Decompression...");
-        //new Decompress("tmp-iterative.seg").start();
-        new Decompress("tmp-recursive.seg").start();
-        System.out.println("Decompression terrminée.");
+        img.decompress();
+       // new Decompress("tmp-recursive.seg").start();
+        System.out.println("Decompression terminée.");
     }
 }
