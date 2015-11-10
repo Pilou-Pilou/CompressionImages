@@ -18,6 +18,15 @@ public class LoadPictures {
 		return this.getClass().getClassLoader().getResource(Browser.askFile(null)).getFile();
 	}
 	
+
+    /**
+     *
+     * @return the path of the picture face.
+     */
+    public String getPng(){
+        return this.getClass().getClassLoader().getResource("face.png").getFile();
+    }
+	
     /**
      *
      * @return the path of the picture Baboon.

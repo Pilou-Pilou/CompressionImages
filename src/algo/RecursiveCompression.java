@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import data.Bit;
 import data.Data;
 import file.BitOutputStream;
+import tests.TestRecursiveSegmentCreation;
 
 public class RecursiveCompression {
 	public final int NB_HEADERS = 11;
@@ -18,6 +19,8 @@ public class RecursiveCompression {
 			//computing segments
 			LinkedList<SegmentForRecursive> compressedSegments = new LinkedList<SegmentForRecursive>();
 			getMin(Data.arrayOfByte, Data.arrayOfByte.length-1, compressedSegments);
+			
+			//TestRecursiveSegmentCreation test = new TestRecursiveSegmentCreation(compressedSegments);
 			
 			//writing segments
 			for(SegmentForRecursive seg : compressedSegments){

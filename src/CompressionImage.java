@@ -62,7 +62,7 @@ public class CompressionImage {
             begin = date.getTime();
             new RecursiveCompression();
             end = date.getTime();
-            System.out.println("done in "+String.valueOf(end-begin)+"ms.");
+            System.out.println(begin+" "+end+"done in "+String.valueOf(end-begin)+"ms.");
 
 
         } catch (IOException e) {

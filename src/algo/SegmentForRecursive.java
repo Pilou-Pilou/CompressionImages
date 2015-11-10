@@ -103,7 +103,7 @@ public class SegmentForRecursive implements Segment {
 		String nbPixels;
 		String nbRemovedPixels;
 		
-		System.out.println("Segment : ");
+		//System.out.println("Segment : ");
 		
 		try {
 			//create the header
@@ -111,24 +111,26 @@ public class SegmentForRecursive implements Segment {
 			while(nbPixels.length()<8){
 				nbPixels = "0"+nbPixels;
 			}
+			//System.out.println(_pixels.size()+"->"+nbPixels);
 			
 			nbRemovedPixels = Integer.toBinaryString(8-_nbBits);
-			while(nbRemovedPixels.length()<8){
+			while(nbRemovedPixels.length()<3){
 				nbRemovedPixels = "0"+nbRemovedPixels;
 			}
+			//System.out.println( (8-_nbBits)+"->"+nbRemovedPixels);
 			segment = nbPixels+nbRemovedPixels;
-			System.out.println("Header : "+segment+" ("+_pixels.size()+","+String.valueOf(8-_nbBits));
+			//System.out.println("Header : "+segment+" ("+_pixels.size()+","+String.valueOf(8-_nbBits));
 			
 			//add each pixel
 			this.reset();
 			while(this.canPop()){
 				String pixel = String.valueOf(this.popCompressedPixel());
-				System.out.println("Pixel : "+pixel);
+				//System.out.println("Pixel : "+pixel);
 				
 				segment += pixel;
 			}
 
-			System.out.println("Segment total : "+segment);
+			//System.out.println("Segment total : "+segment);
 			return segment;
 		}
 		catch (Exception e) {

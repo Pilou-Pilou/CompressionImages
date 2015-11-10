@@ -19,8 +19,8 @@ public class TestReadWriteFile {
 
 		System.out.println("Test de la lecture/écriture d'un fichier...");
 		 try {
-			bitInputStream = new BitInputStream(new LoadPictures().getBaboon());
-            bitOutputStream = new BitOutputStream(new FileOutputStream("baboon-test.raw"));
+			bitInputStream = new BitInputStream(new LoadPictures().getPng());
+            bitOutputStream = new BitOutputStream(new FileOutputStream("face-test.png"));
             
             Data.arrayOfByte = bitInputStream.readByteToArray(bitInputStream.available());
             

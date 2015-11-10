@@ -47,22 +47,39 @@ public class BitInputStream extends FilterInputStream {
 		return res;
 	}
 
-	public String readSegment() throws IOException {
+	public String readSegment() throws Exception {
 
 		String completPixel="";
 		String tmp="";
 		String nbPixel="";
 		String nbBiteUseless="";
-
+		int bit;
+		
 			// read the length of segment
-			for(int i=0;i<8;i++)
-				nbPixel += readBit();
+			for(int i=0;i<8;i++){
+				bit = readBit();
+				if(bit==-1){ //end of file
+					if(i==0) return "";
+					
+					throw new Exception("Unexpected end of file reading the number of pixels in the segment");
+				}
+				nbPixel += bit;
+			}
+			
+			
 
 			//System.out.println(nbPixel);
 			// read the number of bite use
-			for(int i=0;i<3;i++)
-				nbBiteUseless += readBit();
-
+			for(int i=0;i<3;i++){
+				bit = readBit();
+				if(bit == -1){ // EOF
+					throw new Exception("Unexpected end of file reading the 2nd header's part in the segment");
+				}
+				nbBiteUseless += bit;
+			}
+			
+			//System.out.println("Read header : "+nbPixel+nbBiteUseless);
+			
 			//System.out.println(nbBiteUseless);
 			for(int i=0;i<Integer.parseInt(nbBiteUseless, 2);i++)
 				tmp += "0";
@@ -71,9 +88,12 @@ public class BitInputStream extends FilterInputStream {
 			for(int i=0;i<Integer.parseInt(nbPixel, 2);i++){
 				completPixel += tmp;
 				for(int j=0;j<(8-Integer.parseInt(nbBiteUseless, 2));j++) {
-					int a = readBit();
+					bit = readBit();
+					if(bit == -1){ // EOF
+						throw new Exception("Unexpected end of file reading the "+j+"th pixel in the segment which has "+Integer.parseInt(nbPixel, 2)+" pixels");
+					}
 					//System.out.println(a+" "+available()+" "+j+" "+Integer.parseInt(nbBiteUse, 2)+" "+i+" "+Integer.parseInt(nbPixel, 2)+" "+nbPixel+" "+nbBiteUse);
-					completPixel += a + "";
+					completPixel += bit + "";
 				}
 			}
 
