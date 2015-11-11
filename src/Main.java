@@ -1,4 +1,5 @@
 import algo.Decompress;
+import algo.TestAlgo;
 import tests.TestReadWriteFile;
 
 import java.awt.Desktop;
@@ -21,12 +22,18 @@ public class Main {
     	//new TestReadWriteFile();
     	
     	CompressionImage img = new CompressionImage("Baboon.raw");
-    	System.out.println("Compression itérative...");
+    /*	System.out.println("Compression itérative...");
         img.iterative();
         System.out.println("Compression récursive...");
-        img.recursive();
+        img.recursive();*/
+
+    	
+    	
+        System.out.println("Test algo...");
+        TestAlgo.testSansHeaders();
+        
         System.out.println("Decompression...");
-        img.decompress();
+        img.decompress("tmp-testSsHeaders.seg");
        // new Decompress("tmp-recursive.seg").start();
         System.out.println("Decompression terminée.");
     }

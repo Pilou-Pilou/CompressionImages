@@ -10,5 +10,7 @@ package data;
  */
 public class Data {
 
-    public static String[] arrayOfByte = new String[]{"00110011","10101111","01110111","01111111"};
+    public static String[] arrayOfByte = new String[]{
+    													"00000001", "00000001", "00000001", "00000001", "00000001",
+    													"00111111","00111111","00111111","00111111","00111111"};
 }

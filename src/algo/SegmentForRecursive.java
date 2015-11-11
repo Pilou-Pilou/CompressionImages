@@ -25,6 +25,9 @@ public class SegmentForRecursive implements Segment {
 		}
 	}
 	
+	public int getCout(){
+		return _nbBits*_pixels.size();
+	}
 	
 	public void incrNbBits() throws Exception{
 		if(_nbBits==7)
@@ -53,6 +56,10 @@ public class SegmentForRecursive implements Segment {
 	public void push(String pixel) throws Exception{
 		if(_pixels.size()==255)
 			throw new Exception("The number of pixels in the segment cannot be written with more than 8 bits => a segment cannot contain more than 255 pixels");
+		
+		int nbBitsUsed = Bit.getNbBitUseInPixel(pixel);
+		if(nbBitsUsed>_nbBits)
+			_nbBits = nbBitsUsed;
 		
 		_pixels.add(pixel);
 	}

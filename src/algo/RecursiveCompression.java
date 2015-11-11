@@ -9,18 +9,6 @@ import data.Data;
 import file.BitOutputStream;
 import tests.TestRecursiveSegmentCreation;
 
-/*
- * 
- * 
- * ATTENTION
- * 
- * A été déplacé vers CompressionImage.recursive() ; cette classe n'est plus appelée
- * 
- * 
- * 
- * 
- * 
- */
 
 public class RecursiveCompression {
 	public static final int NB_HEADERS = 11;
@@ -33,7 +21,6 @@ public class RecursiveCompression {
 			LinkedList<SegmentForRecursive> compressedSegments = new LinkedList<SegmentForRecursive>();
 			getMin(Data.arrayOfByte, Data.arrayOfByte.length-1, compressedSegments);
 			
-			//TestRecursiveSegmentCreation test = new TestRecursiveSegmentCreation(compressedSegments);
 			
 			//writing segments
 			for(SegmentForRecursive seg : compressedSegments){
