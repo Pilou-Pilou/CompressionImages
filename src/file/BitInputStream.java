@@ -85,12 +85,13 @@ public class BitInputStream extends FilterInputStream {
 				tmp += "0";
 
 
-			for(int i=0;i<Integer.parseInt(nbPixel, 2);i++){
+			int nbPix = Integer.parseInt(nbPixel, 2)+1;
+			for(int i=0;i<nbPix;i++){
 				completPixel += tmp;
 				for(int j=0;j<(8-Integer.parseInt(nbBiteUseless, 2));j++) {
 					bit = readBit();
 					if(bit == -1){ // EOF
-						throw new Exception("Unexpected end of file reading the "+j+"th pixel in the segment which has "+Integer.parseInt(nbPixel, 2)+" pixels");
+						throw new Exception("Unexpected end of file reading the "+j+"th pixel in the segment which has "+nbPix+" pixels");
 					}
 					//System.out.println(a+" "+available()+" "+j+" "+Integer.parseInt(nbBiteUse, 2)+" "+i+" "+Integer.parseInt(nbPixel, 2)+" "+nbPixel+" "+nbBiteUse);
 					completPixel += bit + "";

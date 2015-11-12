@@ -1,4 +1,5 @@
 import algo.Decompress;
+import algo.Jeremy;
 import algo.TestAlgo;
 import tests.TestReadWriteFile;
 
@@ -27,13 +28,10 @@ public class Main {
         System.out.println("Compression récursive...");
         img.recursive();*/
 
+    	new Jeremy();
     	
-    	
-        System.out.println("Test algo...");
-        TestAlgo.testSansHeaders();
-        
         System.out.println("Decompression...");
-        img.decompress("tmp-testSsHeaders.seg");
+        img.decompress("tmp-testJerem.seg");
        // new Decompress("tmp-recursive.seg").start();
         System.out.println("Decompression terminée.");
     }

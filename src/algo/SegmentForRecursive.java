@@ -114,7 +114,7 @@ public class SegmentForRecursive implements Segment {
 		
 		try {
 			//create the header
-			nbPixels = Integer.toBinaryString(_pixels.size());
+			nbPixels = Integer.toBinaryString(_pixels.size()-1); //-1 because 00 = 1 pixel, 01 = 2 pixels, etc..
 			while(nbPixels.length()<8){
 				nbPixels = "0"+nbPixels;
 			}

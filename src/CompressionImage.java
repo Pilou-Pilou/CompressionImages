@@ -46,7 +46,7 @@ public class CompressionImage {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-       // createTableOfByte();
+       createTableOfByte();
        
     }
 
