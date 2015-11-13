@@ -22,7 +22,7 @@ import java.util.ListIterator;
  *
  * @author Julien SERGENT
  */
-public class CompressionImage {
+public class CompressionImageOriginel {
 	public static final int NB_HEADERS = 11;
 
     private BitInputStream bitInputStream;
@@ -33,7 +33,7 @@ public class CompressionImage {
      * Constructor of the CompressionImage who permit to load the picture
      * and put the image in array of bite.
      */
-    public CompressionImage(String picName){
+    public CompressionImageOriginel(String picName){
 
         try {
         	_picName = picName;
@@ -48,6 +48,14 @@ public class CompressionImage {
         }
        createTableOfByte();
        
+    }
+    
+    /**
+     * Constructor of the CompressionImage who permit to load the picture
+     * and put the image in array of bite.
+     */
+    public CompressionImageOriginel(String[] array){
+       Data.arrayOfByte = array;
     }
 
     /**

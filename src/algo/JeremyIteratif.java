@@ -10,12 +10,12 @@ import data.Data;
 import data.Minimum;
 import file.BitOutputStream;
 
-public class Jeremy {
+public class JeremyIteratif {
 
 	public static final int NB_HEADERS = 11;
 	public static int INFINI= -1;
 	
-	public Jeremy(){
+	public JeremyIteratif(){
 		Integer[][] costs = new Integer[Data.arrayOfByte.length][8];
 		try {
 			BitOutputStream out = new BitOutputStream(new FileOutputStream("tmp-testJerem.seg"));
@@ -23,15 +23,15 @@ public class Jeremy {
 
 			System.out.println("Computing costs with "+Data.arrayOfByte.length+" pixels...");
 			Minimum[] mins = new Minimum[Data.arrayOfByte.length]; //minimum cost on a line
-			getMin(0, costs, mins);
+			compute(costs, mins);
 			
-			//displayCosts(costs);
+		//	displayCosts(costs);
 			//displayMins(mins);
 			
 
 			System.out.println("Creating segments...");
 			LinkedList<SegmentForRecursive> compressedSegments = new LinkedList<SegmentForRecursive>();
-			segmentCreation(Data.arrayOfByte.length-1, costs, mins, compressedSegments);
+			segmentCreation(costs, mins, compressedSegments);
 			displaySegments(compressedSegments);
 					
 			System.out.println("Writing segments...");
@@ -82,16 +82,14 @@ public class Jeremy {
 	
 	
 
-	private int segmentCreation(int indice, Integer[][] costs, Minimum[] mins,
+	private void segmentCreation(Integer[][] costs, Minimum[] mins,
 			LinkedList<SegmentForRecursive> compressedSegments) {
+		System.out.println("Creation i=0");
+		compressedSegments.add(new SegmentForRecursive(Data.arrayOfByte[0]));
+
+		int indiceToLook = mins[0].getIndice();
 		
-		if(indice==0){
-			compressedSegments.add(new SegmentForRecursive(Data.arrayOfByte[0]));
-			return mins[0].getIndice();
-		}
-		
-		int indiceToLook = segmentCreation(indice-1, costs, mins, compressedSegments);
-		
+		for(int j=1; j<Data.arrayOfByte.length; j++){
 			
 		//	System.out.println("Nb pixels i-1 : "+compressedSegments.getLast().getNbPixels());
 			//System.out.println("Indices "+Integer.toString(j-1)+" et "+j+" : "+costs[j-1][indiceToLook]+" "+costs[j][indiceToLook]);
@@ -102,61 +100,67 @@ public class Jeremy {
 			try {
 			//	System.out.println(getMin(j,costs,mins)+"+"+costs[j-1][indiceToLook]+"<"+costs[j-1][indiceToLook]+"+"+indiceToLook);
 				//System.out.println(Integer.toString(getMin(j,costs,mins)+costs[j-1][indiceToLook])+"<"+Integer.toString(costs[j-1][indiceToLook]+indiceToLook));
-				if(compressedSegments.getLast().getNbPixels()==256 || costs[indice][indiceToLook]==INFINI || mins[indice].getIndice()<indiceToLook){
+				if(compressedSegments.getLast().getNbPixels()==256 || costs[j][indiceToLook]==INFINI || mins[j].getIndice()<indiceToLook){
 					System.out.println("Creation");
-					compressedSegments.add(new SegmentForRecursive(Data.arrayOfByte[indice]));
-					indiceToLook = mins[indice].getIndice();
+					compressedSegments.add(new SegmentForRecursive(Data.arrayOfByte[j]));
+					indiceToLook = mins[j].getIndice();
 					//System.out.println("Nouvel indice "+indiceToLook);
 				}
 				else{ //ajout
 					System.out.println("Ajout");
-					compressedSegments.getLast().push(Data.arrayOfByte[indice]);
+					compressedSegments.getLast().push(Data.arrayOfByte[j]);
+			
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		return indiceToLook;
+		}
 		
 	}
 
-	public int getMin(int indice, Integer[][] costs, Minimum[] mins) throws Exception{
-		//System.out.println("getMin : "+indice);
-		if(mins[indice]!=null){
-			//System.out.println("mins!= null pr indice "+indice);
-			return mins[indice].getValue();			
-		}
-			
-		int b_i = Bit.getNbBitUseInPixel(Data.arrayOfByte[indice]);
-		int creation;
-		int add;
+	public void compute(Integer[][] costs, Minimum[] mins) throws Exception{
+		int creation, add;
 		
+		/* intial state -> last pixel */
+		int indice = Data.arrayOfByte.length-1;
+		int b_i = Bit.getNbBitUseInPixel(Data.arrayOfByte[indice]);
 		//fill the line
-		if(indice==Data.arrayOfByte.length-1){
-			for(int i=0;i<8;i++){
-				if(b_i>(i+1)){//the pixel cannot be coded on i bits
-					costs[indice][i] = INFINI;
-					//System.out.println("Infini : "+indice+", "+i+" puisque "+b_i+">"+Integer.toString(i+1));
-				}
-				else{
-					//creation
-					costs[indice][i] = NB_HEADERS+(i+1);
-					System.out.println("Pas infini : "+indice+", "+Integer.toString(NB_HEADERS+i));
-				}
-				
-
-				if(costs[indice][i]<-1)
-					throw new Exception("Indice i:"+indice+", +1:"+indice+1+" - "+Integer.toString(costs[indice][i]));
+		for(int i=0;i<8;i++){
+			if(b_i>(i+1)){//the pixel cannot be coded on i bits
+				costs[indice][i] = INFINI;
+				System.out.println("Infini : "+indice+", "+i+" puisque "+b_i+">"+Integer.toString(i+1));
+			}
+			else{
+				//creation
+				costs[indice][i] = NB_HEADERS+(i+1);
+				System.out.println("Pas infini : "+indice+", "+i+" puisque "+b_i+"<="+Integer.toString(i+1));
 			}
 			
+			if(costs[indice][i]<-1)
+				throw new Exception("Indice i:"+indice+", +1:"+indice+1+" - "+Integer.toString(costs[indice][i]));
 		}
-		else{
-			int min_iplus1 = getMin(indice+1, costs, mins);
-	//	System.out.println("Min de "+Integer.toString(indice+1)+" : "+min_iplus1);
 		
+		//get the min of the line
+		mins[indice] = new Minimum(costs[indice][0], 0);
+		for(int i=1; i<8; i++){
+			if(mins[indice].getValue()==INFINI || (costs[indice][i]!=INFINI && costs[indice][i]<mins[indice].getValue())){
+				mins[indice].setValue(costs[indice][i]);
+				mins[indice].setIndice(i);
+			}
+		}
+		
+		
+		
+		/* all following pixels */
+		while(indice!=0){
+			int min_iplus1 = mins[indice].getValue();
+			 
+			indice--;
+			 b_i = Bit.getNbBitUseInPixel(Data.arrayOfByte[indice]);
+			
+			//fill the line
 			for(int i=0;i<8;i++){
-				//System.out.println("Costs "+Integer.toString(i+1)+" : "+costs[indice+1][i]);
-				
 				if(b_i>(i+1)){//the pixel cannot be coded on i bits
 					costs[indice][i] = INFINI;
 				}
@@ -193,21 +197,18 @@ public class Jeremy {
 
 				if(costs[indice][i]<-1)
 					throw new Exception("costs Indice i:"+indice+", +1:"+indice+1+" - "+Integer.toString(costs[indice][i]));
-				
-		//		System.out.println("Costs "+Integer.toString(i+1)+" : "+costs[indice+1][i]);
+			}
+			
+			//get the min of the line
+			mins[indice] = new Minimum(costs[indice][0], 0);
+			for(int j=1; j<8; j++){
+				if(mins[indice].getValue()==INFINI || (costs[indice][j]!=INFINI && costs[indice][j]<mins[indice].getValue())){
+					mins[indice].setValue(costs[indice][j]);
+					mins[indice].setIndice(j);
+				}
 			}
 		}
 		
-		//get the min of the line
-		mins[indice] = new Minimum(costs[indice][0], 0);
-		for(int i=1; i<8; i++){
-			if(mins[indice].getValue()==INFINI || (costs[indice][i]!=INFINI && costs[indice][i]<mins[indice].getValue())){
-				mins[indice].setValue(costs[indice][i]);
-				mins[indice].setIndice(i);
-			}
-		}
-		
-		return mins[indice].getValue();
 	}
 	
 }

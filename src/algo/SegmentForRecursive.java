@@ -54,8 +54,8 @@ public class SegmentForRecursive implements Segment {
 	}
 	
 	public void push(String pixel) throws Exception{
-		if(_pixels.size()==255)
-			throw new Exception("The number of pixels in the segment cannot be written with more than 8 bits => a segment cannot contain more than 255 pixels");
+		if(_pixels.size()==256)
+			throw new Exception("The number of pixels in the segment cannot be written with more than 8 bits => a segment cannot contain more than 256 pixels");
 		
 		int nbBitsUsed = Bit.getNbBitUseInPixel(pixel);
 		if(nbBitsUsed>_nbBits)
@@ -143,5 +143,15 @@ public class SegmentForRecursive implements Segment {
 		catch (Exception e) {
 			return segment;
 		}
+	}
+
+
+	public String getNbBitsEachPixel() {
+		String str = "";
+		for(String pix : _pixels){
+			str += Bit.getNbBitUseInPixel(pix)+"-";
+		}
+		
+		return str;
 	}
 }
