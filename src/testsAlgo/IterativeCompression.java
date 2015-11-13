@@ -1,4 +1,4 @@
-package algo;
+package testsAlgo;
 
 import data.*;
 import file.BitOutputStream;

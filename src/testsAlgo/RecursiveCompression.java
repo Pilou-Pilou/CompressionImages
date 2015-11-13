@@ -1,4 +1,4 @@
-package algo;
+package testsAlgo;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

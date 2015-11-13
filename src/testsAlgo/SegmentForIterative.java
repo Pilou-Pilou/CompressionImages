@@ -1,4 +1,4 @@
-package algo;
+package testsAlgo;
 
 /**
  * <b>File :</b> Segment.java<br>

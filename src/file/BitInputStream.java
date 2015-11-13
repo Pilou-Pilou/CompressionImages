@@ -1,12 +1,12 @@
 package file;
 
-import algo.SegmentForIterative;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+
+import testsAlgo.SegmentForIterative;
 
 /**
  * <b>File :</b> BitInputStream.java<br>

@@ -2,7 +2,7 @@ package tests;
 
 import java.util.LinkedList;
 
-import algo.SegmentForRecursive;
+import testsAlgo.SegmentForRecursive;
 
 public class TestRecursiveSegmentCreation {
 

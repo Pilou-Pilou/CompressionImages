@@ -1,10 +1,10 @@
 package file;
 
-import algo.Segment;
-import algo.SegmentForIterative;
-
 import java.io.IOException;
 import java.io.OutputStream;
+
+import testsAlgo.Segment;
+import testsAlgo.SegmentForIterative;
 
 /**
  * <b>File :</b> BitOutputStream.java<br>
