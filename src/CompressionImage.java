@@ -34,9 +34,10 @@ public class CompressionImage {
     /**
      * Constructor of the CompressionImage who permit to load the picture
      * and put the image in array of bite.
+     * @param facteur : multiply the size of the picture duplicating pixels x facteur
      */
-    public CompressionImage(String picName){
-
+    public CompressionImage(String picName, int factor){
+    	System.out.println("Chargement de l'image en 2^"+Integer.toString(factor)+" fois...");
         try {
         	_picName = picName;
             bitInputStream = new BitInputStream(new LoadPictures().get(picName));
@@ -45,7 +46,8 @@ public class CompressionImage {
             e.printStackTrace();
         }
        createTableOfByte();
-       
+       multiply(factor);
+   		System.out.println("Image chargée.");
     }
     
     /**
@@ -67,6 +69,26 @@ public class CompressionImage {
             e.printStackTrace();
         }
 
+    }
+    
+    private void multiply(int factor){
+    	if(factor<=1)return;
+    	
+
+		String[] dupl = new String[Data.arrayOfByte.length*factor];
+    	for(int i=0; i<Data.arrayOfByte.length; i++){
+    		int j = i;
+			//System.out.print(i+" : ");
+    		while(j<dupl.length){
+    		//	System.out.print(j+" ");
+    			dupl[j] = Data.arrayOfByte[i];
+    			j += Data.arrayOfByte.length;
+    		}
+    		
+    		//System.out.println();
+    	}
+    	
+    	Data.arrayOfByte = dupl;
     }
     
     public void iterative(){

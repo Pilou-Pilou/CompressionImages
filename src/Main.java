@@ -14,7 +14,7 @@ public class Main {
     	System.out.println("Compression/décompression de fichiers...");
     	//new TestReadWriteFile();
     	
-    	CompressionImage img = new CompressionImage("Baboon.raw");
+    	CompressionImage img = new CompressionImage("Baboon.raw",2);
     	img.iterative();
         img.recursive();
     	

@@ -1,0 +1,187 @@
+chaines[] image; //image, ou une cellule = 1 pixel (ex. : "10001011")\\
+    entier[][] couts;\\
+    entier coutCreation, coutAjout;\\
+		
+	/* état initial : le dernier pixel */\\
+	entier indice = image.length;\\
+	entier b_i = getNbBitUseInPixel(image[indice]);\\
+	
+	//calcule les coûts pour le pixel indice\\
+	pour i sur [1;8]\\
+		si b_i>i //le pixel ne peut aps être codé sur i bits \\
+			couts[indice][i] = INFINI; \\
+		sinon \\
+			//création d'un segment \\
+			couts[indice][i] = 11+i; \\
+		finsi;\\
+	fin pour;\\
+		
+	//mémoïse le minimum des coûts pour le pixel indice, et pour quel nombre de bits se trouve ce minimum (eg. à quelle indice de la 2ème dimension du tableau couts)\\
+	mins[indice].value = couts[indice][0];\\
+	mins[indice].indice = 0; \\
+	pour entier i sur [1;8]\\
+	    si couts[indice][i]<mins[indice]\\
+	        mins[indice].value = couts[indice][i];\\
+	        mins[indice].indice = i;\\
+	   fin si;
+	fin pour;\\
+		
+	/* tous les autres pixels */ \\
+	tant que indice!=0\\
+		entier min_iplus1 = mins[indice].value; \\
+		indice--; \\
+		 b_i = getNbBitUseInPixel(image[indice]); \\
+			
+		//calcule des meilleurs coûts pour le pixel indice, suivant sur combien de bits on le code dans le segment \\
+		pour entier i sur [1;8] \\
+		    si b_i>i //le pixel ne peut pas être codé sur i bits \\
+		        couts[indice][i] = INFINI; \\
+		       sinon création d'un segment ou ajout à un autre ?\\
+		            coutCreation = 11+i+min_iplus1; \\
+		            
+		            coutAjout = i+couts[indice+1][i]; \\
+		            
+		            couts[indice][i] = min(coutCreation, coutAjout); \\
+			fin si;\\
+		fin pour;\\
+			
+
+		//mémoïse le minimum des coûts pour le pixel indice, et pour quel nombre de bits se trouve ce minimum (eg. à quelle indice de la 2ème dimension du tableau couts)\\
+		mins[indice].value = couts[indice][0];\\
+    	mins[indice].indice = 0; \\
+    	pour entier i sur [1;8]\\
+    	    si couts[indice][i]<mins[indice]\\
+    	        mins[indice].value = couts[indice][i];\\
+    	        mins[indice].indice = i;\\
+    	   fin si;\\
+    	fin pour;\\
+	fin tant que;\\
+		
+	/* 2ème passe : crée effectivement les segments, en parcourant l'image dans l'autre sens */ \\
+	Segments[] segmentsCompresses;\\
+	/* état initial => créer un segment */ \\
+	segmentsCompresses.add(image[0]));\\
+	entier indiceToLook = mins[0].indice; //segment crée avec le nombre de bits correspondant à l'indice du min de la ligne 0 du tableau de couts \\
+
+	/* pixels suivants */\\
+	pour entier j sur [1;image.length] \\
+		//création d'un segment si le dernier crée est complet ou que le pixel j a un meilleur min ou n'est pas faisable pour le nombre de pixels proposés \\
+		si segmentsCompresses[segmentsCompresses.length].length == 256 OU couts[j][indiceToLook]==INFINI OU mins[j].indice<indiceToLook) \\
+					compressedSegments.add(image[j]);\\
+					indiceToLook = mins[j].indice; \\
+		sinon //ajout \\
+			segmentsCompresses[segementsCompresses.length].push(image[j]); \\
+		fin si; \\
+	fin pour; \\
+
+Récursif
+
+
+procedure main() \\
+	entier[][] couts; //1ère dimension pour les pixels, 2ème dimension de 8 cellules correspondant pour l'indice j : si on code le pixel sur j bits\\
+	Segment[][] segmentsCompresses; //1ère dimension pour les segments, 2ème dimension pour les pixels du segment\\
+
+	Minimum[] mins;\\
+	getMin(0, couts, mins);\\
+	creationSegments(image.length, couts, mins, segmentsCompresses); \\
+fin procedure;\\
+
+/** \\
+ * Pour la première passe ; retourne le coût minimal trouvé pour le pixel indice \\
+ * @param indice : pixel dont il faut calculer le minimum \\
+ * @param couts : tous les couts calculés pour chaque pixel jusqu'alors ; pour chaque pixel, pour chaque nombre de bits sur lequel est codable le pixel (1..8), se trouve le coût associé \\
+ * @param mins : pour chaque pixel, le coût minimal \\
+ */\\
+	fonction getMin(entier indice, entier[][] costs, Minimum[] mins) : retourne entier \\
+		si mins[indice]!=null \\
+			retourne mins[indice].value; \\
+		fin si;\\
+		
+		entier b_i = getNbBitUseInPixel(image[indice]);
+		entier coutCreation, coutAjout; \\
+				
+		/* état initial -> dernier pixel */ \\
+		si indice==image.length\\
+			//pour mémoïser le minimum des coûts pour le pixel indice, et pour quel nombre de bits se trouve ce minimum (eg. à quelle indice de la 2ème dimension du tableau couts)\\
+			mins[indice].value = couts[indice][0];\\
+			mins[indice].indice = 0; \\
+		
+			//rempli la ligne de coûts de création ou met infini si le pixel n'est pas codables \\
+			pour entier i sur [1;8]\\
+				si b_i>i //le pixel ne peut pas être codé sur i bits\\
+					couts[indice][i] = INFINI;\\
+				sinon \\cout de creation \\
+					coouts[indice][i] = 11+i;\\
+				fin si;\\
+				
+				si couts[indice][i]<mins[indice]\\
+					mins[indice].value = couts[indice][i];\\
+					mins[indice].indice = i;\\
+				fin si;\\
+			fin pour;\\
+		sinon //tous les autres pixels \\
+			entier min_iplus1 = getMin(indice+1, couts, mins); \\
+			
+			//pour mémoïser le minimum des coûts pour le pixel indice, et pour quel nombre de bits se trouve ce minimum (eg. à quelle indice de la 2ème dimension du tableau couts)\\
+			mins[indice].value = couts[indice][0];\\
+			mins[indice].indice = 0; \\
+		
+			//rempli la ligne des couts possibles pour le pixel indice, suivant sur combien de bits on le code dans un segment \\
+			pour i sur [1;8]\\
+				si b_i>i //le pixel ne peut pas être codé sur i bits \\
+					couts[indice][i] = INFINI;
+				sinon \\
+					coutCreation = 11+i+min_iplus1; \\
+					coutAjout = i+couts[indice+1][i]; \\
+										
+					couts[indice][i] = min(coutCreation, coutAjout); \\
+				fin si; \\
+				
+				si couts[indice][i]<mins[indice]\\
+					mins[indice].value = couts[indice][i];\\
+					mins[indice].indice = i;\\
+				fin si;\\
+			fin pour; \\
+		fin si; \\
+		
+		
+		return mins[indice].value; \\
+	}\\
+fin fonction;\\
+	
+/**\\
+ * Pour la 2ème passe : crée effectivement les segments, en parcourant l'image dans l'autre sens \\
+ * @param indice
+ * @param costs
+ * @param mins
+ * @param segementsCompresses
+ * @return Le nombre de bits dans le segment dont fait parti le pixel i-1 \\
+ */
+	fonction segmentCreation(entier indice, entier[][] couts, Minimum[] mins, Segment[] segmentsCompresses) : retourne entier \\
+		/* état initial -> crée un segment */ \\
+		si indice == 0\\
+			segementsCompresses.add(image[0])\\
+			retourne mins[0].indice; \\
+		fin si;\\
+		
+		/* tous les pixels suivants */ \\
+		entier indiceToLook = segmentCreation(indice-1, costs, mins, segementsCompresses);\\
+		
+		//création d'un segment \\
+		si segementsCompresses[segementsCompresses.length].length == 256 OU couts[indice][indiceToLook]==INFINI OU mins[indice].indice<indiceToLook \\
+				segementsCompresses.add(image[indice]);\\
+				indiceToLook = mins[indice].indice;\\
+		sinon //ajout au segment précédent\\
+			segementsCompresses[segementsCompresses.length].push(image[indice]);\\
+		fin si;
+		
+		retourne indiceToLook;\\
+	fin fonction;\\
+
+	
+Calcul du cout
+Posons n le nombre de pixels de l'image à compresser.\\
+Première passe :\\
+Cette fonction est appelée n fois.\\
+A chaque appel, une ligne du tableau couts est parcourue, soit un coût de 8.\\
+

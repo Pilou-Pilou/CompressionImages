@@ -71,7 +71,7 @@ public class RecursiveAlgo {
 		int add;
 		
 		/* intial state -> last pixel */
-		if(indice==Data.arrayOfByte.length-1){
+		if(indice==Data.arrayOfByte.length-1){			
 			//fill the line for the pixel
 			for(int i=0;i<8;i++){
 				if(b_i>(i+1)){//the pixel cannot be coded on i bits
@@ -85,6 +85,17 @@ public class RecursiveAlgo {
 
 				if(costs[indice][i]<-1)//we only do additions of positive numbers => result must be a positive number or INFINI => a negative result means a buffer overflow
 					throw new Exception("Buffer overflow - Cost for pixel "+indice+" with "+Integer.toString(i+1)+" bits shouldn't have a negative value");
+			
+
+				//to get the min of all computed costs for the pixel indice
+				if(i==0)
+					mins[indice] = new Minimum(costs[indice][0], -1);
+				else{
+					if(mins[indice].getValue()==INFINI || (costs[indice][i]!=INFINI && costs[indice][i]<mins[indice].getValue())){
+						mins[indice].setValue(costs[indice][i]);
+						mins[indice].setIndice(i);
+					}
+				}
 			}
 			
 		}
@@ -124,17 +135,19 @@ public class RecursiveAlgo {
 				if(costs[indice][i]<-1) //we only do additions of positive numbers => result must be a positive number or INFINI => a negative result means a buffer overflow
 					throw new Exception("Buffer overflow - Cost for pixel "+indice+" with "+Integer.toString(i+1)+" bits shouldn't have a negative value");
 			
+				//to get the min of all computed costs for the pixel indice
+				if(i==0)
+					mins[indice] = new Minimum(costs[indice][0], 0);
+				else{
+					if(mins[indice].getValue()==INFINI || (costs[indice][i]!=INFINI && costs[indice][i]<mins[indice].getValue())){
+						mins[indice].setValue(costs[indice][i]);
+						mins[indice].setIndice(i);
+					}
+				}
 			}
 		}
 		
-		//get the min of all computed costs for the pixel indice
-		mins[indice] = new Minimum(costs[indice][0], 0);
-		for(int i=1; i<8; i++){
-			if(mins[indice].getValue()==INFINI || (costs[indice][i]!=INFINI && costs[indice][i]<mins[indice].getValue())){
-				mins[indice].setValue(costs[indice][i]);
-				mins[indice].setIndice(i);
-			}
-		}
+		
 		
 		return mins[indice].getValue();
 	}

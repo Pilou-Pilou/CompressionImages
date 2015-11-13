@@ -61,29 +61,33 @@ public class IterativeAlgo {
 		/* intial state -> last pixel */
 		int indice = Data.arrayOfByte.length-1;
 		int b_i = Bit.getNbBitUseInPixel(Data.arrayOfByte[indice]);
+
+		
+		
 		//fill the line for the pixel
 		for(int i=0;i<8;i++){
 			if(b_i>(i+1)){//the pixel cannot be coded on i bits
 				costs[indice][i] = INFINI;
 			}
 			else{
-				//creation of a segment is better -> compute the cost
+				//cost for the creation of a segment
 				costs[indice][i] = NB_HEADERS+(i+1);
 			}
 			
 			if(costs[indice][i]<-1) //we only do additions of positive numbers => result must be a positive number or INFINI => a negative result means a buffer overflow
 				throw new Exception("Buffer overflow - Cost for pixel "+indice+" with "+Integer.toString(i+1)+" bits shouldn't have a negative value");
-		}
 		
-		//get the min of all computed costs for the pixel indice
-		mins[indice] = new Minimum(costs[indice][0], 0);
-		for(int i=1; i<8; i++){
-			if(mins[indice].getValue()==INFINI || (costs[indice][i]!=INFINI && costs[indice][i]<mins[indice].getValue())){
-				mins[indice].setValue(costs[indice][i]);
-				mins[indice].setIndice(i);
+			//to get the min of all computed costs for the pixel indice
+			if(i==0)
+				mins[indice] = new Minimum(costs[indice][0], -1);
+			else{
+				if(mins[indice].getValue()==INFINI || (costs[indice][i]!=INFINI && costs[indice][i]<mins[indice].getValue())){
+					mins[indice].setValue(costs[indice][i]);
+					mins[indice].setIndice(i);
+				}
 			}
 		}
-		
+				
 		
 		
 		/* all following pixels */
@@ -93,6 +97,7 @@ public class IterativeAlgo {
 			indice--;
 			 b_i = Bit.getNbBitUseInPixel(Data.arrayOfByte[indice]);
 			
+			 
 			//fill the line for the pixel
 			for(int i=0;i<8;i++){
 				if(b_i>(i+1)){//the pixel cannot be coded on i bits
@@ -124,15 +129,15 @@ public class IterativeAlgo {
 
 				if(costs[indice][i]<-1) //we only do additions of positive numbers => result must be a positive number or INFINI => a negative result means a buffer overflow
 					throw new Exception("Buffer overflow - Cost for pixel "+indice+" with "+Integer.toString(i+1)+" bits shouldn't have a negative value");
-			}
-			
 
-			//get the min of all computed costs for the pixel indice
-			mins[indice] = new Minimum(costs[indice][0], 0);
-			for(int j=1; j<8; j++){
-				if(mins[indice].getValue()==INFINI || (costs[indice][j]!=INFINI && costs[indice][j]<mins[indice].getValue())){
-					mins[indice].setValue(costs[indice][j]);
-					mins[indice].setIndice(j);
+				//to get the min of all computed costs for the pixel indice
+				if(i==0)
+					mins[indice] = new Minimum(costs[indice][0], 0);
+				else{
+					if(mins[indice].getValue()==INFINI || (costs[indice][i]!=INFINI && costs[indice][i]<mins[indice].getValue())){
+						mins[indice].setValue(costs[indice][i]);
+						mins[indice].setIndice(i);
+					}
 				}
 			}
 		}
@@ -156,6 +161,7 @@ public class IterativeAlgo {
 		for(int j=1; j<Data.arrayOfByte.length; j++){
 			//creation of a segment
 			try {
+				
 				if(compressedSegments.getLast().getNbPixels()==256 || costs[j][indiceToLook]==INFINI || mins[j].getIndice()<indiceToLook){
 					compressedSegments.add(new SegmentForRecursive(Data.arrayOfByte[j]));
 					indiceToLook = mins[j].getIndice();
@@ -164,6 +170,7 @@ public class IterativeAlgo {
 					compressedSegments.getLast().push(Data.arrayOfByte[j]);
 				}
 			} catch (Exception e) {
+				System.out.println("Erreur with pixel : "+j);
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
