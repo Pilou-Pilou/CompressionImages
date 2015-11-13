@@ -1,14 +1,11 @@
-package testsAlgo;
+package com.ensimag.algorithmique.testsAlgo;
 
-import data.*;
-import file.BitOutputStream;
+import com.ensimag.algorithmique.data.*;
+import com.ensimag.algorithmique.file.BitOutputStream;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -16,7 +13,7 @@ import java.util.List;
  * 
  * ATTENTION
  * 
- * Cette classe n'est plus appelée ; j'ai fait l'algo dans CompressionImage.iterative()
+ * Cette classe n'est plus appelï¿½e ; j'ai fait l'com.ensimag.algorithmique.algo dans com.ensimag.algorithmique.CompressionImage.iterative()
  * 
  * 
  * 
@@ -94,11 +91,11 @@ public class IterativeCompression {
 
         }
 
-        // create the sequence and put it in the file
+        // create the sequence and put it in the com.ensimag.algorithmique.file
         BitOutputStream file = new BitOutputStream(new FileOutputStream("tmp-iterative.seg"));
         currentNode = lastNode;
         index = Data.arrayOfByte.length;
-        List<SegmentForIterative> listSegments = new ArrayList<>();
+        List<SegmentForIterative> listSegments = new ArrayList<SegmentForIterative>();
         while(currentNode != null){
             nbPixel = currentNode.getNbPixel();
             SegmentForIterative segment = new SegmentForIterative(nbPixel,8-currentNode.getNbBitUse());

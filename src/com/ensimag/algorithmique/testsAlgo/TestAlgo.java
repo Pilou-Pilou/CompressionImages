@@ -1,18 +1,14 @@
-package testsAlgo;
+package com.ensimag.algorithmique.testsAlgo;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
-import data.Bit;
-import data.Data;
+import com.ensimag.algorithmique.data.Bit;
+import com.ensimag.algorithmique.data.Data;
 
-import file.BitOutputStream;
+import com.ensimag.algorithmique.file.BitOutputStream;
 
 public class TestAlgo {
 	public static final int NB_HEADERS = 11;

@@ -1,4 +1,4 @@
-package data;
+package com.ensimag.algorithmique.data;
 
 public class Minimum {
 	private int _indice;

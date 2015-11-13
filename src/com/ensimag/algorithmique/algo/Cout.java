@@ -1,4 +1,4 @@
-package algo;
+package com.ensimag.algorithmique.algo;
 
 public class Cout {
 	public final static int CREATION = 0;

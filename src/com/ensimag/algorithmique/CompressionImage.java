@@ -1,12 +1,13 @@
-import algo.IterativeAlgo;
-import algo.RecursiveAlgo;
-import algo.Cout;
-import data.Bit;
-import data.Data;
-import file.BitInputStream;
-import file.BitOutputStream;
-import file.LoadPictures;
-import testsAlgo.SegmentForRecursive;
+package com.ensimag.algorithmique;
+
+import com.ensimag.algorithmique.algo.IterativeAlgo;
+import com.ensimag.algorithmique.algo.RecursiveAlgo;
+import com.ensimag.algorithmique.data.Bit;
+import com.ensimag.algorithmique.data.Data;
+import com.ensimag.algorithmique.file.BitInputStream;
+import com.ensimag.algorithmique.file.BitOutputStream;
+import com.ensimag.algorithmique.file.LoadPictures;
+import com.ensimag.algorithmique.testsAlgo.SegmentForRecursive;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,7 +15,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 /**
  * <b>File :</b> Compressor.java<br>
@@ -28,19 +28,18 @@ public class CompressionImage {
 	public static final int NB_HEADERS = 11;
 
     private BitInputStream bitInputStream;
-    private String _picName;
     private HashSet<String> _compressedFiles = new HashSet<String>();
 
     /**
-     * Constructor of the CompressionImage who permit to load the picture
+     * Constructor of the com.ensimag.algorithmique.CompressionImage who permit to load the picture
      * and put the image in array of bite.
      * @param facteur : multiply the size of the picture duplicating pixels x facteur
      */
-    public CompressionImage(String picName, int factor){
+    public CompressionImage(String pathFile, int factor){
     	System.out.println("Chargement de l'image en 2^"+Integer.toString(factor)+" fois...");
+
         try {
-        	_picName = picName;
-            bitInputStream = new BitInputStream(new LoadPictures().get(picName));
+            bitInputStream = new BitInputStream(pathFile);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -51,7 +50,7 @@ public class CompressionImage {
     }
     
     /**
-     * Constructor of the CompressionImage who permit to load the picture
+     * Constructor of the com.ensimag.algorithmique.CompressionImage who permit to load the picture
      * and put the image in array of bite.
      */
     public CompressionImage(String[] array){
@@ -78,46 +77,38 @@ public class CompressionImage {
 		String[] dupl = new String[Data.arrayOfByte.length*factor];
     	for(int i=0; i<Data.arrayOfByte.length; i++){
     		int j = i;
-			//System.out.print(i+" : ");
     		while(j<dupl.length){
-    		//	System.out.print(j+" ");
     			dupl[j] = Data.arrayOfByte[i];
     			j += Data.arrayOfByte.length;
     		}
-    		
-    		//System.out.println();
     	}
     	
     	Data.arrayOfByte = dupl;
     }
     
     public void iterative(){
-    	System.out.println("Compression itérative...");
+    	System.out.println("Compression iterative...");
     
-    	String compressedFile = _picName+"-iterative.seg";
+    	String compressedFile = "tmp-iterative.seg";
     	_compressedFiles.add(compressedFile);
     	new IterativeAlgo(compressedFile);
     	
-    	System.out.println("Compression itérative terminée.");
+    	System.out.println("Compression iterative terminee.");
     }
     
 
     public void recursive(){
-    	System.out.println("Compression récursive...");
-    	String compressedFile = _picName+"-recursive.seg";
+    	System.out.println("Compression recursive...");
+    	String compressedFile = "tmp-recursive.seg";
     	_compressedFiles.add(compressedFile);
     	new RecursiveAlgo(compressedFile);
-    	System.out.println("Compression récursive terminée.");
+    	System.out.println("Compression recursive terminee.");
     }
     
-    
-    public void decompress(String path){
+    public void decompress(){
     	BitInputStream bitInputStream;
     	BitOutputStream bitOutputStream;
-    	
-    	if(path!=null)
-    		_compressedFiles.add(path);
-    	
+    	    	
     	Iterator<String> files = _compressedFiles.iterator();
     	
     	 try {
@@ -149,8 +140,47 @@ public class CompressionImage {
                      }
                  }
 
-                 System.out.println("Decompression de "+file+" terminée.");
+                 System.out.println("Decompression de "+file+" terminee.");
     		 }
+             
+         }catch (FileNotFoundException e){
+             e.printStackTrace();
+         }
+    }
+    
+    
+    public static void decompress(String file){
+    	BitInputStream bitInputStream;
+    	BitOutputStream bitOutputStream;
+    	
+    	 try {
+
+	        System.out.println("Decompression de "+file+"...");
+		 
+			 bitOutputStream = new BitOutputStream(new FileOutputStream(file+"-decompressed.raw"));
+	         bitInputStream = new BitInputStream(file);
+	         
+	         String tmp;
+	         try {
+	             while(bitInputStream.available()>0) {
+	                 tmp = bitInputStream.readSegment();
+	 					bitOutputStream.write(tmp);
+	             }
+	
+	         } catch (Exception e) {
+	             e.printStackTrace();
+	         }finally{
+	
+	             try {
+	                 bitInputStream.close();
+	                 bitOutputStream.close();
+	             } catch (IOException e) {
+	                 e.printStackTrace();
+	             }
+	         }
+	
+	         System.out.println("Decompression de "+file+" terminee.");
+
              
          }catch (FileNotFoundException e){
              e.printStackTrace();

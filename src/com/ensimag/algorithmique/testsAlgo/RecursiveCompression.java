@@ -1,13 +1,12 @@
-package testsAlgo;
+package com.ensimag.algorithmique.testsAlgo;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.LinkedList;
 
-import data.Bit;
-import data.Data;
-import file.BitOutputStream;
-import tests.TestRecursiveSegmentCreation;
+import com.ensimag.algorithmique.data.Bit;
+import com.ensimag.algorithmique.data.Data;
+import com.ensimag.algorithmique.file.BitOutputStream;
 
 
 public class RecursiveCompression {

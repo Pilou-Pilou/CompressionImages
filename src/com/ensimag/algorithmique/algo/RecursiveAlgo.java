@@ -1,15 +1,14 @@
-package algo;
+package com.ensimag.algorithmique.algo;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Iterator;
 import java.util.LinkedList;
 
-import data.Bit;
-import data.Data;
-import data.Minimum;
-import file.BitOutputStream;
-import testsAlgo.SegmentForRecursive;
+import com.ensimag.algorithmique.data.Bit;
+import com.ensimag.algorithmique.data.Data;
+import com.ensimag.algorithmique.data.Minimum;
+import com.ensimag.algorithmique.file.BitOutputStream;
+import com.ensimag.algorithmique.testsAlgo.SegmentForRecursive;
 
 public class RecursiveAlgo {
 
@@ -111,7 +110,7 @@ public class RecursiveAlgo {
 				else{
 					/* creation or add ? */
 					if(min_iplus1==INFINI)
-						throw new Exception("Le pixel suivant a forcément une valeur inférieure à l'infini");
+						throw new Exception("Le pixel suivant a forcï¿½ment une valeur infï¿½rieure ï¿½ l'infini");
 					else
 						creation = NB_HEADERS+(i+1)+min_iplus1;
 					

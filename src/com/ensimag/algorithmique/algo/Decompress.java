@@ -1,7 +1,7 @@
-package algo;
+package com.ensimag.algorithmique.algo;
 
-import file.BitInputStream;
-import file.BitOutputStream;
+import com.ensimag.algorithmique.file.BitInputStream;
+import com.ensimag.algorithmique.file.BitOutputStream;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,7 +13,7 @@ import java.io.IOException;
  * 
  * ATTENTION
  * 
- * A été déplacé vers CompressionImage.decompress() ; cette classe n'est plus appelée
+ * A ï¿½tï¿½ dï¿½placï¿½ vers com.ensimag.algorithmique.CompressionImage.decompress() ; cette classe n'est plus appelï¿½e
  * 
  * 
  * 
@@ -36,7 +36,7 @@ public class Decompress {
     BitOutputStream bitOutputStream;
 
     /**
-     * Constructor of the class Decompress who will open two file .seg and .raw.
+     * Constructor of the class Decompress who will open two com.ensimag.algorithmique.file .seg and .raw.
      */
     public Decompress(String pathFileSeg){
         try {
@@ -48,7 +48,7 @@ public class Decompress {
     }
 
     /**
-     * This read all segment in the file .seg and rewrite all pixel by using 8 bit.
+     * This read all segment in the com.ensimag.algorithmique.file .seg and rewrite all pixel by using 8 bit.
      */
     public void start(){
 

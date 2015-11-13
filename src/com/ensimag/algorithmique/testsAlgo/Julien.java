@@ -1,9 +1,9 @@
-package testsAlgo;
+package com.ensimag.algorithmique.testsAlgo;
 
 import java.util.LinkedList;
 
-import data.Bit;
-import data.Data;
+import com.ensimag.algorithmique.data.Bit;
+import com.ensimag.algorithmique.data.Data;
 
 public class Julien {
 	public final static int NB_HEADERS = 11;

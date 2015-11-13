@@ -1,6 +1,6 @@
-package testsAlgo;
+package com.ensimag.algorithmique.testsAlgo;
 
-import data.Bit;
+import com.ensimag.algorithmique.data.Bit;
 
 import java.util.Iterator;
 import java.util.LinkedList;

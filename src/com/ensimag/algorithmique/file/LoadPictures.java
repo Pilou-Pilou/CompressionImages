@@ -1,4 +1,4 @@
-package file;
+package com.ensimag.algorithmique.file;
 
 /**
  * <b>File :</b> LoadPictures.java<br>
