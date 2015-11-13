@@ -1,12 +1,13 @@
-import algo.IterativeAlgo;
-import algo.RecursiveAlgo;
-import algo.Cout;
-import data.Bit;
-import data.Data;
-import file.BitInputStream;
-import file.BitOutputStream;
-import file.LoadPictures;
-import testsAlgo.SegmentForRecursive;
+package com.ensimag.algorithmique;
+
+import com.ensimag.algorithmique.algo.IterativeAlgo;
+import com.ensimag.algorithmique.algo.RecursiveAlgo;
+import com.ensimag.algorithmique.data.Bit;
+import com.ensimag.algorithmique.data.Data;
+import com.ensimag.algorithmique.file.BitInputStream;
+import com.ensimag.algorithmique.file.BitOutputStream;
+import com.ensimag.algorithmique.file.LoadPictures;
+import com.ensimag.algorithmique.testsAlgo.SegmentForRecursive;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,7 +15,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 /**
  * <b>File :</b> Compressor.java<br>
@@ -28,18 +28,16 @@ public class CompressionImage {
 	public static final int NB_HEADERS = 11;
 
     private BitInputStream bitInputStream;
-    private String _picName;
     private HashSet<String> _compressedFiles = new HashSet<String>();
 
     /**
-     * Constructor of the CompressionImage who permit to load the picture
+     * Constructor of the com.ensimag.algorithmique.CompressionImage who permit to load the picture
      * and put the image in array of bite.
      */
-    public CompressionImage(String picName){
+    public CompressionImage(String pathFile){
 
         try {
-        	_picName = picName;
-            bitInputStream = new BitInputStream(new LoadPictures().get(picName));
+            bitInputStream = new BitInputStream(pathFile);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -49,7 +47,7 @@ public class CompressionImage {
     }
     
     /**
-     * Constructor of the CompressionImage who permit to load the picture
+     * Constructor of the com.ensimag.algorithmique.CompressionImage who permit to load the picture
      * and put the image in array of bite.
      */
     public CompressionImage(String[] array){
@@ -70,22 +68,22 @@ public class CompressionImage {
     }
     
     public void iterative(){
-    	System.out.println("Compression itérative...");
+    	System.out.println("Compression iterative...");
     
-    	String compressedFile = _picName+"-iterative.seg";
+    	String compressedFile = "tmp-iterative.seg";
     	_compressedFiles.add(compressedFile);
     	new IterativeAlgo(compressedFile);
     	
-    	System.out.println("Compression itérative terminée.");
+    	System.out.println("Compression iterative terminee.");
     }
     
 
     public void recursive(){
-    	System.out.println("Compression récursive...");
-    	String compressedFile = _picName+"-recursive.seg";
+    	System.out.println("Compression recursive...");
+    	String compressedFile = "tmp-recursive.seg";
     	_compressedFiles.add(compressedFile);
     	new RecursiveAlgo(compressedFile);
-    	System.out.println("Compression récursive terminée.");
+    	System.out.println("Compression recursive terminee.");
     }
     
     
@@ -127,7 +125,7 @@ public class CompressionImage {
                      }
                  }
 
-                 System.out.println("Decompression de "+file+" terminée.");
+                 System.out.println("Decompression de "+file+" terminee.");
     		 }
              
          }catch (FileNotFoundException e){

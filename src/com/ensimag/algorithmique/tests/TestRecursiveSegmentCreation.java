@@ -1,8 +1,8 @@
-package tests;
+package com.ensimag.algorithmique.tests;
 
 import java.util.LinkedList;
 
-import testsAlgo.SegmentForRecursive;
+import com.ensimag.algorithmique.testsAlgo.SegmentForRecursive;
 
 public class TestRecursiveSegmentCreation {
 

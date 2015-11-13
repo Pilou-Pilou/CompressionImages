@@ -1,12 +1,10 @@
-package file;
+package com.ensimag.algorithmique.file;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.util.Arrays;
-
-import testsAlgo.SegmentForIterative;
 
 /**
  * <b>File :</b> BitInputStream.java<br>
@@ -58,10 +56,10 @@ public class BitInputStream extends FilterInputStream {
 			// read the length of segment
 			for(int i=0;i<8;i++){
 				bit = readBit();
-				if(bit==-1){ //end of file
+				if(bit==-1){ //end of com.ensimag.algorithmique.file
 					if(i==0) return "";
 					
-					throw new Exception("Unexpected end of file reading the number of pixels in the segment");
+					throw new Exception("Unexpected end of com.ensimag.algorithmique.file reading the number of pixels in the segment");
 				}
 				nbPixel += bit;
 			}
@@ -73,7 +71,7 @@ public class BitInputStream extends FilterInputStream {
 			for(int i=0;i<3;i++){
 				bit = readBit();
 				if(bit == -1){ // EOF
-					throw new Exception("Unexpected end of file reading the 2nd header's part in the segment");
+					throw new Exception("Unexpected end of com.ensimag.algorithmique.file reading the 2nd header's part in the segment");
 				}
 				nbBiteUseless += bit;
 			}
@@ -91,7 +89,7 @@ public class BitInputStream extends FilterInputStream {
 				for(int j=0;j<(8-Integer.parseInt(nbBiteUseless, 2));j++) {
 					bit = readBit();
 					if(bit == -1){ // EOF
-						throw new Exception("Unexpected end of file reading the "+j+"th pixel in the segment which has "+nbPix+" pixels");
+						throw new Exception("Unexpected end of com.ensimag.algorithmique.file reading the "+j+"th pixel in the segment which has "+nbPix+" pixels");
 					}
 					//System.out.println(a+" "+available()+" "+j+" "+Integer.parseInt(nbBiteUse, 2)+" "+i+" "+Integer.parseInt(nbPixel, 2)+" "+nbPixel+" "+nbBiteUse);
 					completPixel += bit + "";

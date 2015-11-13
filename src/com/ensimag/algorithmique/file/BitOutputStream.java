@@ -1,10 +1,9 @@
-package file;
+package com.ensimag.algorithmique.file;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import testsAlgo.Segment;
-import testsAlgo.SegmentForIterative;
+import com.ensimag.algorithmique.testsAlgo.Segment;
 
 /**
  * <b>File :</b> BitOutputStream.java<br>

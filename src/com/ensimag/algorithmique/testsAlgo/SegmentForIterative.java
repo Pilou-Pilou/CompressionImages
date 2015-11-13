@@ -1,4 +1,4 @@
-package testsAlgo;
+package com.ensimag.algorithmique.testsAlgo;
 
 /**
  * <b>File :</b> Segment.java<br>

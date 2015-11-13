@@ -1,4 +1,4 @@
-package data;
+package com.ensimag.algorithmique.data;
 
 /**
  * <b>File :</b> ArrayOfByte.java<br>

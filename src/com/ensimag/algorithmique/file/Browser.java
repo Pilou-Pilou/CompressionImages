@@ -1,11 +1,11 @@
-package file;
+package com.ensimag.algorithmique.file;
 
 import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
 public class Browser {
-	public static final String[] RAW_EXTENSIONS = {".data", ".3fr", ".ari", ".arw", ".bay", ".crw", ".cr2", ".cap", ".dcs", ".dcr", ".dng", ".drf",
+	public static final String[] RAW_EXTENSIONS = {".com.ensimag.algorithmique.data", ".3fr", ".ari", ".arw", ".bay", ".crw", ".cr2", ".cap", ".dcs", ".dcr", ".dng", ".drf",
 			".eip", ".erf", ".fff", ".iiq",	".k25", ".kdc", ".mdc", ".mef", ".mos", ".mrw",	".nef", ".nrw", ".obm", ".orf", ".pef", ".ptx", 
 			".pxn", ".r3d", ".raf", ".raw", ".rwl", ".rw2", ".rwz", ".sr2", ".srf", ".srw", ".tif", ".x3f"};
 	public static final String ROOT_FOLDER = "C:\\Users\\batal\\workspace\\Projet Algo - Compression raw\\resources\\pics";
@@ -14,12 +14,12 @@ public class Browser {
 	/**
 	 * A directories browser like
 	 * Display the content of the specified defaultDir directory
-	 * Wait for the user enter one of its subdirectory's name or file's name with the keyboard
-	 * When a correct file's name is entered, its absolute path is returned
+	 * Wait for the user enter one of its subdirectory's name or com.ensimag.algorithmique.file's name with the keyboard
+	 * When a correct com.ensimag.algorithmique.file's name is entered, its absolute path is returned
 	 * 
 	 * Note : A complete absolute or relative path can be entered with the keyboard
 	 * @param defaultDir : The directory where to start browser
-	 * @return The absolute path of the file chosen by the user
+	 * @return The absolute path of the com.ensimag.algorithmique.file chosen by the user
 	 */
 	public static String askFile(String defaultDir){
 		Scanner sc = new Scanner(System.in);
@@ -58,14 +58,14 @@ public class Browser {
 					
 					System.out.print("\nSelect : ");
 					in = sc.next();
-				}else{//pathFile points to a file
+				}else{//pathFile points to a com.ensimag.algorithmique.file
 					if(!file.exists()){
-						System.out.print("Error - The file " + filePath + " does not exist.");
+						System.out.print("Error - The com.ensimag.algorithmique.file " + filePath + " does not exist.");
 						filePath = parentDir(filePath);
 						file = new File(filePath);
 					}
 					else if(!contains(RAW_EXTENSIONS, getExtension(file.getName()))){
-						System.out.print("Error - The file " + filePath + " has not a supported format.");
+						System.out.print("Error - The com.ensimag.algorithmique.file " + filePath + " has not a supported format.");
 						filePath = parentDir(filePath);
 						file = new File(filePath);
 					}
@@ -73,7 +73,7 @@ public class Browser {
 			}while(file.isDirectory() || !file.exists() || !contains(RAW_EXTENSIONS, getExtension(file.getName())));
 			
 			
-			System.out.println("The following file will be compressed : "+file.getName());
+			System.out.println("The following com.ensimag.algorithmique.file will be compressed : "+file.getName());
 			return file.getParentFile().getAbsolutePath();
 			
 		}catch(Exception e){
@@ -114,7 +114,7 @@ public class Browser {
 	}
 	
 	/**
-	 * Return the extension of the specified file's name
+	 * Return the extension of the specified com.ensimag.algorithmique.file's name
 	 * @param filePath
 	 * @return
 	 */
@@ -127,7 +127,7 @@ public class Browser {
 	}
 	
 	/**
-	 * Removes the last folder from a file path, to get its parent directory path
+	 * Removes the last folder from a com.ensimag.algorithmique.file path, to get its parent directory path
 	 * @param filePath
 	 */
 	public static String parentDir(String filePath){

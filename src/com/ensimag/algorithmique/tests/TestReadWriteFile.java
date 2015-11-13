@@ -1,23 +1,22 @@
-package tests;
+package com.ensimag.algorithmique.tests;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import data.Data;
-import file.BitInputStream;
-import file.BitOutputStream;
-import file.LoadPictures;
+import com.ensimag.algorithmique.data.Data;
+import com.ensimag.algorithmique.file.BitInputStream;
+import com.ensimag.algorithmique.file.BitOutputStream;
+import com.ensimag.algorithmique.file.LoadPictures;
 
 public class TestReadWriteFile {
 	private BitInputStream bitInputStream;
 	private BitOutputStream bitOutputStream;
 	
 	/**
-	 * Read the file Baboon then write it in baboon-test.raw to check if a file is well read then write
+	 * Read the com.ensimag.algorithmique.file Baboon then write it in baboon-test.raw to check if a com.ensimag.algorithmique.file is well read then write
 	 */
 	public TestReadWriteFile(){
 
-		System.out.println("Test de la lecture/écriture d'un fichier...");
+		System.out.println("Test de la lecture/ï¿½criture d'un fichier...");
 		 try {
 			bitInputStream = new BitInputStream(new LoadPictures().getPng());
             bitOutputStream = new BitOutputStream(new FileOutputStream("face-test.png"));
@@ -32,6 +31,6 @@ public class TestReadWriteFile {
 			e.printStackTrace();
 		}
 		 
-		System.out.println("Test terminé.");
+		System.out.println("Test terminï¿½.");
 	}
 }
